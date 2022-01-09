@@ -18,7 +18,7 @@ const mapStateToProps = (appState: AppState) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): TopPageHandler => {
   return {
     handleOnChangeValue: (value: string) => {
       dispatch(TextInputActions.updateTextInputValue(value))

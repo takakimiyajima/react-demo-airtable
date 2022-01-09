@@ -13,13 +13,23 @@ export const initialState: State = {
   clickCount: 0
 }
 
+/** Return new state */
 export const Reducer = reducerWithInitialState(initialState)
   .case(TextInputActions.updateTextInputValue, (state, inputValue) => {
-      return { ...state, inputValue }
+    return {
+      ...state,
+      inputValue
+    }
   })
   .case(TextInputActions.updateSelectedValue, (state, selectedValue) => {
-      return { ...state, selectedValue }
+    return {
+      ...state,
+      selectedValue
+    }
   })
   .case(TextInputActions.updateClickCount, (state) => {
-      return { ...state, clickCount: state.clickCount + 1 }
+    return {
+      ...state,
+      clickCount: state.clickCount + 1
+    }
   })
