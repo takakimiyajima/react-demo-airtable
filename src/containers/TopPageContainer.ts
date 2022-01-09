@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { TextInputActions } from '../action'
 import { TopPageForm } from '../components/TopPageForm'
-import { AppState } from '@/store'
+import { AppState } from '../store'
 
 export interface TopPageHandler {
   handleOnChangeValue(value: string): void
@@ -20,9 +20,15 @@ const mapStateToProps = (appState: AppState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    handleOnChangeValue: (value: string) => { dispatch(TextInputActions.updateTextInputValue(value)) },
-    handleOnSelectValue: (value: string) => { dispatch(TextInputActions.updateSelectedValue(value)) },
-    handleOnClick: () => { dispatch(TextInputActions.updateClickCount()) }
+    handleOnChangeValue: (value: string) => {
+      dispatch(TextInputActions.updateTextInputValue(value))
+    },
+    handleOnSelectValue: (value: string) => {
+      dispatch(TextInputActions.updateSelectedValue(value))
+    },
+    handleOnClick: () => {
+      dispatch(TextInputActions.updateClickCount())
+    }
   }
 }
 

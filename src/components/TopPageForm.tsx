@@ -13,30 +13,28 @@ type ContainerProps = {
 
 type Props = ContainerProps & TopPageHandler
 
-export class TopPageForm extends React.Component<Props> {
-  render() {
-    return(
-      <>
-        <TextInput
-          title='Input'
-          inputValue={this.props.inputValue}
-          onChangeValue={this.props.handleOnChangeValue}
-        />
-        <RadioInput
-          title='Radio'
-          selectedValue={this.props.selectedValue}
-          onChangeValue={this.props.handleOnSelectValue}
-        />
-        <SubmitButton
-          title='Click Me'
-          onClick={this.props.handleOnClick}
-        />
-        <ShowState
-          inputValue={this.props.inputValue}
-          selectedValue={this.props.selectedValue}
-          clickCount={this.props.clickCount}
-        />
-      </>
-    )
-  }
+export const TopPageForm: React.FC<Props> = props => {
+  return(
+    <>
+      <TextInput
+        title='Input'
+        inputValue={props.inputValue}
+        onChangeValue={props.handleOnChangeValue}
+      />
+      <RadioInput
+        title='Radio'
+        selectedValue={props.selectedValue}
+        onChangeValue={props.handleOnSelectValue}
+      />
+      <SubmitButton
+        title='Click Me'
+        onClick={props.handleOnClick}
+      />
+      <ShowState
+        inputValue={props.inputValue}
+        selectedValue={props.selectedValue}
+        clickCount={props.clickCount}
+      />
+    </>
+  )
 }

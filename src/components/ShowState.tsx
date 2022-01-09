@@ -6,7 +6,7 @@ type Props = {
   clickCount: number
 }
 
-export const ShowState : React.FC<Props> = props => {
+export const ShowState: React.FC<Props> = props => {
   return(
     <div>
       <label>[states]</label>
