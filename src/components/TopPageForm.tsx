@@ -1,9 +1,9 @@
 import React from 'react'
-import { TopPageHandler } from '../containers/TopPageContainer'
-import { TextInput } from './TextInput'
-import { RadioInput } from './RadioInput'
-import { ShowState } from './ShowState'
-import { SubmitButton } from './SubmitButton'
+import { TopPageHandler } from '@/containers/TopPageContainer'
+import { TextInput } from '@/components/TextInput'
+import { RadioInput } from '@/components/RadioInput'
+import { ShowState } from '@/components/ShowState'
+import { SubmitButton } from '@/components/SubmitButton'
 
 type ContainerProps = {
   inputValue: string

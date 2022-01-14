@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { TextInputActions } from '../action'
-import { TopPageForm } from '../components/TopPageForm'
-import { AppState } from '../store'
+import { AppState } from '@/store'
+import { TextInputActions } from '@/action'
+import { TopPageForm } from '@/components/TopPageForm'
 
 export type TopPageHandler = {
   handleOnChangeValue: (value: string) => void
