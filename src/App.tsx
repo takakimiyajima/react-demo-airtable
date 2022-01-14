@@ -1,12 +1,19 @@
 import React from 'react'
-import './App.css'
-import TopPageContainer from './containers/TopPageContainer'
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from 'react-router-dom'
 
-const App: React.FC = () => {
+import { SignIn } from '@/pages/signIn'
+
+function App() {
   return (
-    <React.Fragment>
-      <TopPageContainer/>
-    </React.Fragment>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/signIn' element={<SignIn />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
