@@ -2,7 +2,7 @@ import React from 'react'
 
 type Props = {
   title: string
-  onClick: Function
+  onClick: () => void
 }
 
 export const SubmitButton: React.FC<Props> = props => {

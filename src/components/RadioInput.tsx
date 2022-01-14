@@ -3,7 +3,7 @@ import React from 'react'
 type Props = {
   title: string
   selectedValue: string
-  onChangeValue: Function
+  onChangeValue: (value: string) => void
 }
 
 export const RadioInput: React.FC<Props> = props => {

@@ -3,7 +3,7 @@ import React from 'react'
 type Props = {
   title: string
   inputValue: string
-  onChangeValue: Function
+  onChangeValue: (value: string) => void
 }
 
 export const TextInput: React.FC<Props> = props => {

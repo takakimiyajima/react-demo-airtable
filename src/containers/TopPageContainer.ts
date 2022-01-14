@@ -4,10 +4,10 @@ import { TextInputActions } from '../action'
 import { TopPageForm } from '../components/TopPageForm'
 import { AppState } from '../store'
 
-export interface TopPageHandler {
-  handleOnChangeValue(value: string): void
-  handleOnSelectValue(value: string): void
-  handleOnClick(): void
+export type TopPageHandler = {
+  handleOnChangeValue: (value: string) => void
+  handleOnSelectValue: (value: string) => void
+  handleOnClick: () => void
 }
 
 const mapStateToProps = (appState: AppState) => {
