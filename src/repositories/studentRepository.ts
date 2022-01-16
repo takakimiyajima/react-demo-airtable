@@ -2,17 +2,20 @@ import { studentsTable } from '@/services/airtable'
 
 export class StudentRepository {
   /**
-   * Fetch Students
+   * Fetch one student
+   * @param name Student's name
    * @returns all students data
    */
-  static fetchStudents = async () => {
+  static fetchStudent = async(name: string) => {
     try {
-      const records = await studentsTable.select().firstPage()
+      const records = await studentsTable.select({
+        filterByFormula: `{Name} = "${name}"`,
+      }).firstPage()
 
       const modRecords = records.map((record) => {
         return {
           name: record.fields.Name,
-          students: record.fields.Students
+          classes: record.fields.Classes
         }
       })
 

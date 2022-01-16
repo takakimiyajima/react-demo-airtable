@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { SignInHandler } from '@/containers/SignInContainer'
 import { TextInput } from '@/components/TextInput'
-import { ClassRepository } from '@/repositories/classRepository'
+import { StudentRepository } from '@/repositories'
 
 type ContainerProps = {
   inputValue: string
@@ -21,7 +21,7 @@ const Component = ({
   useEffect(() => {
     (async (): Promise<void> => {
       try {
-        const records = await ClassRepository.fetchClass()
+        const records = await StudentRepository.fetchStudent('Joe')
         console.log('records')
         console.log(records)
       } catch (error) {
