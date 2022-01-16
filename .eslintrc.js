@@ -12,8 +12,6 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: './tsconfig.json',
   },
-  // extendsから利用するためコメントアウト
-  // plugins: ['react', '@typescript-eslint'],
   settings: {
     react: {
       version: 'detect',
@@ -29,7 +27,6 @@ module.exports = {
     // 'plugin:@typescript-eslint/eslint-recommended',
     // eslint:recommendedに含まれるルールを型チェックでカバーできるものは無効化とあったが公式に言及見当たらず
     'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:react/recommended',
     'prettier',
   ],
