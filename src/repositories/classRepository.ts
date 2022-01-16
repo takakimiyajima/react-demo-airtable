@@ -1,6 +1,10 @@
 import { classesTable } from '@/services/airtable'
 
 export class ClassRepository {
+  /**
+   * Fetch Classes Data
+   * @returns All Classes Data
+   */
   static fetchClass = async () => {
     try {
       const records = await classesTable.select().firstPage()
