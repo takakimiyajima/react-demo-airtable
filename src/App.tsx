@@ -7,13 +7,13 @@ import {
   Route
 } from 'react-router-dom'
 
-import { SignIn } from '@/pages/signIn'
+import SignInContainer from '@/containers/SignInContainer'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/signIn' element={<SignIn />} />
+        <Route path='/signIn' element={<SignInContainer />} />
       </Routes>
     </BrowserRouter>
   )

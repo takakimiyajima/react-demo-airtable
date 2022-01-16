@@ -3,14 +3,10 @@ import { TextInputActions } from './action'
 
 export interface State {
   inputValue: string
-  selectedValue: string
-  clickCount: number
 }
 
 export const initialState: State = {
   inputValue: '',
-  selectedValue: '',
-  clickCount: 0
 }
 
 /** Return new state */
@@ -19,17 +15,5 @@ export const Reducer = reducerWithInitialState(initialState)
     return {
       ...state,
       inputValue
-    }
-  })
-  .case(TextInputActions.updateSelectedValue, (state, selectedValue) => {
-    return {
-      ...state,
-      selectedValue
-    }
-  })
-  .case(TextInputActions.updateClickCount, (state) => {
-    return {
-      ...state,
-      clickCount: state.clickCount + 1
     }
   })
