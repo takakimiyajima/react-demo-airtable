@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { SignInHandler } from '@/containers/SignInContainer'
 import { TextInput } from '@/components/TextInput'
+import { ClassRepository } from '@/repositories/classRepository'
 
 type ContainerProps = {
   inputValue: string
@@ -16,6 +17,19 @@ const Component = ({
   inputValue,
   handleOnChangeValue
 }: Props): JSX.Element => {
+
+  useEffect(() => {
+    (async (): Promise<void> => {
+      try {
+        const records = await ClassRepository.fetchClass()
+        console.log('records')
+        console.log(records)
+      } catch (error) {
+        console.log('error')
+      }
+    })()
+  }, [])
+
   return (
     <div className={className}>
       <div className='container'>
@@ -43,7 +57,7 @@ const StyledComponent = styled(Component)`
     transform: translate(-50%, -50%);
 
     > .input {
-      
+
     }
   }
 `

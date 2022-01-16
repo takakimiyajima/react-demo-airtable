@@ -1,10 +1,26 @@
 import Airtable from 'airtable'
 
-Airtable.configure({
-  apiKey: process.env.AIRTABLE_API_KEY
-})
+const base = new Airtable({ apiKey: process.env.REACT_APP_AIRTABLE_API_KEY })
+  .base(process.env.REACT_APP_AIRTABLE_BASE_ID ?? '')
 
-const base = Airtable.base(process.env.AIRTABLE_BASE_ID ?? '')
-const table = base(process.env.AIRTABLE_TABLE_NAME ?? '')
+const TABLES = {
+  CLASSES: 'Classes',
+  STUDENTS: 'Students',
+} as const
 
-export { table }
+const classesTable = base(TABLES.CLASSES)
+const studentsTable = base(TABLES.STUDENTS)
+
+type Record = {
+  id: string
+}
+
+const getMinifiedRecords = (records: Array<Record>) => {
+  return records.map(({ id }) => id)
+}
+
+export {
+  classesTable,
+  studentsTable,
+  getMinifiedRecords
+}
