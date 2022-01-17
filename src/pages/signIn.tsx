@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { SignInHandler } from '@/containers/SignInContainer'
 import { TextInput } from '@/components/TextInput'
-import { StudentRepository } from '@/repositories'
+import { ClassRepository, StudentRepository } from '@/repositories'
 
 type ContainerProps = {
   inputValue: string
@@ -20,13 +20,15 @@ const Component = ({
 
   useEffect(() => {
     (async (): Promise<void> => {
-      try {
-        const records = await StudentRepository.fetchStudent('Joe')
-        console.log('records')
-        console.log(records)
-      } catch (error) {
-        console.log('error')
-      }
+      const studentId = await StudentRepository.fetchStudent('Joe')
+      const students = await StudentRepository.fetchAllStudents()
+      const classes = await ClassRepository.fetchAllClasses()
+      console.log('classes---')
+      console.log(classes)
+      console.log('studentId---')
+      console.log(studentId)
+      console.log('students---')
+      console.log(students)
     })()
   }, [])
 
