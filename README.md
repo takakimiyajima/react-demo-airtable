@@ -3,6 +3,7 @@ This is a demo app I challenged with Airtable.
 
 # How to use
 ```sh
+$ yarn
 $ yarn dev
 ```
 
