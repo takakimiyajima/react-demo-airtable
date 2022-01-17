@@ -1,20 +1,21 @@
-import React from 'react';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
-import { ErrorPageHandler } from "@/containers/ErrorContainer";
-import { Error } from '@/reducer';
-
-type ContainerProps = {
-  error: Error | null
-};
+import { Link } from "react-router-dom";
+import { AppState } from "@/store";
+import { clearAll } from "@/action";
+import { Error } from "@/reducer";
 
 type Props = {
   className?: string;
-} & ContainerProps & ErrorPageHandler;
+}
 
-const Component = ({ className, error, onClearAll }: Props) => {
+const Component = ({ className }: Props) => {
+  const dispatch = useDispatch();
+  const error = useSelector<AppState, Error | null>(({ state }) => state.error);
+
   const onClickToLogin = () => {
-    onClearAll()
+    dispatch(clearAll());
   }
 
   return (

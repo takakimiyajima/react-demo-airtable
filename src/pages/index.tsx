@@ -1,62 +1,58 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { AppState } from "@/store";
 import { Error } from '@/reducer'
 import { Class, StudentInfo } from "@/repositories";
-import { TopHandler } from "@/containers/TopContainer";
 import { ClassContainer } from "@/components/ClassContainer";
 import { TextInput } from "@/components/TextInput";
 import { SubmitButton } from "@/components/SubmitButton";
+import {
+  isFetching,
+  getAllClasses,
+  getStudent,
+  getAllStudents,
+  clearAll,
+} from "@/action";
 
 type ClassInfo = {
   classRoom: string;
   names: string;
 };
 
-type ContainerProps = {
-  classes: Array<Class>;
-  studentID: string;
-  students: Array<StudentInfo>;
-  isFetching: boolean;
-  error: Error | null
-};
-
 type Props = {
   className?: string;
-} & ContainerProps &
-  TopHandler;
+};
 
 const Component = ({
-  className,
-  classes,
-  studentID,
-  students,
-  onIsFetching,
-  onGetAllClasses,
-  onGetStudent,
-  onGetAllStudents,
-  onClearAll,
-  isFetching,
-  error,
+  className
 }: Props): JSX.Element => {
+  const dispatch = useDispatch();
+  const classes = useSelector<AppState, Array<Class>>(({ state }) => state.classes)
+  const studentID = useSelector<AppState, string>(({ state }) => state.studentID)
+  const students = useSelector<AppState, Array<StudentInfo>>(({ state }) => state.students)
+  const isLoading = useSelector<AppState, boolean>(({ state }) => state.isFetching)
+  const error = useSelector<AppState, Error | null>(({ state }) => state.error)
+
   const [name, setName] = useState("");
   const [classInfo, setClassInfo] = useState<Array<ClassInfo>>([]);
   const navigate = useNavigate();
   
   const login = () => {
-    onIsFetching(true);
-    onGetStudent(name);
+    dispatch(isFetching(true));
+    dispatch(getStudent(name));
   };
 
   const logout = () => {
-    onClearAll();
+    dispatch(clearAll());
     setName("");
   };
 
   useEffect(() => {
     if (studentID) {
-      onGetAllStudents();
-      onGetAllClasses();
+      dispatch(getAllStudents());
+      dispatch(getAllClasses());
     }
   }, [studentID]);
 
@@ -98,7 +94,7 @@ const Component = ({
         </>
       ) : (
         <div className="login">
-          {isFetching ? (
+          {isLoading ? (
             <p>Loading.....</p>
           ) : (
             <>
@@ -145,6 +141,6 @@ const StyledComponent = styled(Component)`
   }
 `;
 
-export const Top = (props: Props): JSX.Element => {
+export const TopPage = (props: Props): JSX.Element => {
   return <StyledComponent {...props} />;
 };

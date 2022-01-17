@@ -1,20 +1,20 @@
-import React from 'react';
-import '@/styles/globals.css';
+import React from "react";
+import "@/styles/globals.css";
 import {
   BrowserRouter,
   Routes,
   Route
-} from 'react-router-dom';
-import TopContainer from '@/containers/TopContainer';
-import ErrorContainer from '@/containers/ErrorContainer';
+} from "react-router-dom";
+import { TopPage } from "@/pages/index";
+import { ErrorPage } from "@/pages/error";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<TopContainer />} />
-        <Route path='/error' element={<ErrorContainer />} />
-        <Route path='*' element={<ErrorContainer />} />
+        <Route path='/' element={<TopPage />} />
+        <Route path='/error' element={<ErrorPage />} />
+        <Route path='*' element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   )
