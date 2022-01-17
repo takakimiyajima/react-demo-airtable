@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { TextInput } from '@/components/TextInput'
 import { Class, Student } from '@/repositories'
 import { TopHandler } from '@/containers/TopContainer'
 import { ClassContainer } from '@/components/ClassContainer'
+import { TextInput } from '@/components/TextInput'
+import { SubmitButton } from '@/components/SubmitButton'
+
 
 type ClassInfo = {
   classRoom: string
@@ -38,6 +40,10 @@ const Component = ({
     onGetAllStudents()
   }
 
+  const logout = () => {
+    console.log('logout')
+  }
+
   useEffect(() => {
     const filteredClass = classes.filter(({ students }) => students.includes(studentID))
     const classAndStudent: Array<ClassInfo> = filteredClass.flatMap((c) => {
@@ -55,30 +61,54 @@ const Component = ({
   return (
     <div className={className}>
       {classInfo.length > 0 ? (
-        <ClassContainer classInfo={classInfo} />
-      ) : (
         <>
+          <div className='logout-button'>
+            <SubmitButton title='Logout' onClick={logout} />
+          </div>
+          <div className='class-container'>
+            <ClassContainer classInfo={classInfo} />
+          </div>
+        </>
+      ) : (
+        <div className='login'>
           <TextInput
             title="Student Name: "
             inputValue={name}
             onChangeValue={setName}
           />
-          <button className='login' onClick={login}>Login</button>
-        </>
+          <div className='login-button'>
+            <SubmitButton title='Login' onClick={login} />
+          </div>
+        </div>
       )}
     </div>
   )
 }
 
 const StyledComponent = styled(Component)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  > .logout-button {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+  }
+
+  > .class-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 
   > .login {
-    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    > .login-button {
+      margin-top: 10px;
+    }
   }
 `
 

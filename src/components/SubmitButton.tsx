@@ -1,14 +1,29 @@
 import React from 'react'
+import styled from 'styled-components'
 
-type Props = {
+type ContainerProps = {
   title: string
   onClick: () => void
 }
 
-export const SubmitButton: React.FC<Props> = props => {
+type Props = {
+  className?: string
+} & ContainerProps
+
+const Component =({
+  className,
+  onClick,
+  title,
+}: Props): JSX.Element => {
   return(
-    <div>
-      <button onClick={() => props.onClick()}>{props.title}</button>
+    <div className={className}>
+      <button onClick={() => onClick()}>{title}</button>
     </div>
   )
+}
+
+const StyledComponent = styled(Component)``
+
+export const SubmitButton = (props: Props): JSX.Element => {
+  return <StyledComponent {...props} />
 }
