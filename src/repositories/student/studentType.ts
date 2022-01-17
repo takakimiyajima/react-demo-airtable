@@ -20,13 +20,3 @@ export type StudentsEntity = {
   students: Array<StudentEntity>
   error: ErrorEntity | null
 }
- 
-/**
- * Presentation-related
- */
-export type StudentInfo = {
-  classRoom: string;
-  /** (e.g.) Jon, Jade, Mike .... */
-  studentNames: string;
-}
- 
