@@ -1,22 +1,9 @@
 import { studentsTable } from "@/services/airtable"
-import { Error } from "@/reducer"
 import { ERROR_STATUS, ErrorStatusType } from "@/constants/error"
-
-
-export type StudentID = {
-  studentID: string
-  error?: Error
-}
-
-export type StudentInfo = {
-  id: string
-  name: string
-}
-
-export type StudentsInfo = {
-  students: Array<StudentInfo>
-  error?: Error
-}
+import {
+  StudentIDEntity,
+  StudentsEntity
+} from "./studentType"
 
 export class StudentRepository {
   /**
@@ -26,7 +13,7 @@ export class StudentRepository {
    */
   static fetchStudent = async (
     name: string
-  ): Promise<StudentID> => {
+  ): Promise<StudentIDEntity> => {
     return await studentsTable
       .select({
         filterByFormula: `{Name} = "${name}"`,
@@ -36,7 +23,7 @@ export class StudentRepository {
       .then((student) => {
         return {
           studentID: student[0].id,
-          error: undefined
+          error: null
         }
       })
       .catch((err) => {
@@ -55,9 +42,9 @@ export class StudentRepository {
 
   /**
    * Fetch all students
-   * @returns all students data
+   * @returns All students data
    */
-  static fetchAllStudents = async (): Promise<StudentsInfo> => {
+  static fetchAllStudents = async (): Promise<StudentsEntity> => {
     return await studentsTable.select()
       .firstPage()
       .then((students) => {
@@ -69,7 +56,7 @@ export class StudentRepository {
         })
         return {
           students: modStudents,
-          error: undefined
+          error: null
         }
       })
       .catch((err) => {

@@ -1,18 +1,13 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import { Actions } from "@/action";
-import { Class, StudentInfo } from "@/repositories";
-
-export type Error = {
-  statusCode: number;
-  message: string;
-}
+import { ClassEntity, StudentEntity, ErrorEntity } from "@/repositories";
 
 export type State = {
-  classes: Array<Class>;
+  classes: Array<ClassEntity>;
   studentID: string;
-  students: Array<StudentInfo>;
+  students: Array<StudentEntity>;
   isFetching: boolean;
-  error: Error | null;
+  error: ErrorEntity | null;
 }
 
 export const initialState: State = {

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { AppState } from "@/store";
 import { clearAll } from "@/action";
-import { Error } from "@/reducer";
+import { ErrorEntity } from "@/repositories";
 
 type Props = {
   className?: string;
@@ -12,7 +12,7 @@ type Props = {
 
 const Component = ({ className }: Props) => {
   const dispatch = useDispatch();
-  const error = useSelector<AppState, Error | null>(({ state }) => state.error);
+  const error = useSelector<AppState, ErrorEntity | null>(({ state }) => state.error);
 
   const onClickToLogin = () => {
     dispatch(clearAll());

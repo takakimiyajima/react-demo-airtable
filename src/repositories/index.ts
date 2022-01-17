@@ -2,5 +2,8 @@
  * entry point for repository file
  */
 
-export * from './classRepository'
-export * from './studentRepository'
+export * from "./error"
+export * from "./class/classRepository"
+export * from "./class/classType"
+export * from "./student/studentRepository"
+export * from "./student/studentType"

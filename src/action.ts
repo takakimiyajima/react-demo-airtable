@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux'
 import { actionCreatorFactory } from 'typescript-fsa'
 import {
-  ClassesInfo,
+  ClassesEntity,
   ClassRepository,
-  StudentID,
-  StudentsInfo,
+  StudentIDEntity,
+  StudentsEntity,
   StudentRepository
 } from '@/repositories'
 
@@ -19,9 +19,9 @@ const actionCreator = actionCreatorFactory()
 
 export const Actions = {
   isFetching: actionCreator<boolean>(DISPATCH_STRING.IS_FETCHING),
-  fetchAllClasses: actionCreator<ClassesInfo>(DISPATCH_STRING.FETCH_ALL_CLASSES),
-  fetchStudent: actionCreator<StudentID>(DISPATCH_STRING.FETCH_STUDENT),
-  fetchAllStudents: actionCreator<StudentsInfo>(DISPATCH_STRING.FETCH_ALL_STUDENTS),
+  fetchAllClasses: actionCreator<ClassesEntity>(DISPATCH_STRING.FETCH_ALL_CLASSES),
+  fetchStudent: actionCreator<StudentIDEntity>(DISPATCH_STRING.FETCH_STUDENT),
+  fetchAllStudents: actionCreator<StudentsEntity>(DISPATCH_STRING.FETCH_ALL_STUDENTS),
   clearAll: actionCreator(DISPATCH_STRING.CLEAR_STATE),
 }
 

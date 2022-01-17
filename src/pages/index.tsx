@@ -10,18 +10,17 @@ import {
   getAllStudents,
   clearAll,
 } from "@/action";
-import { Error } from '@/reducer'
-import { Class, StudentInfo } from "@/repositories";
+import {
+  ClassEntity,
+  ClassInfo,
+  StudentEntity,
+  ErrorEntity,
+} from "@/repositories";
 import {
   ClassContainer,
   TextInput,
   SubmitButton
 } from "@/components";
-
-type ClassInfo = {
-  classRoom: string;
-  names: string;
-};
 
 type Props = {
   className?: string;
@@ -31,11 +30,11 @@ const Component = ({
   className
 }: Props): JSX.Element => {
   const dispatch = useDispatch();
-  const classes = useSelector<AppState, Array<Class>>(({ state }) => state.classes)
+  const classes = useSelector<AppState, Array<ClassEntity>>(({ state }) => state.classes)
   const studentID = useSelector<AppState, string>(({ state }) => state.studentID)
-  const students = useSelector<AppState, Array<StudentInfo>>(({ state }) => state.students)
+  const students = useSelector<AppState, Array<StudentEntity>>(({ state }) => state.students)
   const isLoading = useSelector<AppState, boolean>(({ state }) => state.isFetching)
-  const error = useSelector<AppState, Error | null>(({ state }) => state.error)
+  const error = useSelector<AppState, ErrorEntity | null>(({ state }) => state.error)
 
   const [name, setName] = useState("");
   const [classInfo, setClassInfo] = useState<Array<ClassInfo>>([]);
@@ -59,18 +58,18 @@ const Component = ({
   }, [studentID]);
 
   useEffect(() => {
-    const filteredClass = classes.filter(({ students }) =>
-      students.includes(studentID)
+    const filteredClasses = classes.filter(({ studentIDs }) =>
+      studentIDs.includes(studentID)
     );
-    const classAndStudent: Array<ClassInfo> = filteredClass.flatMap((c) => {
-      const names = c.students.map(
+    const classAndStudent: Array<ClassInfo> = filteredClasses.flatMap((c) => {
+      const names = c.studentIDs.map(
         (studentId) =>
           students.find(({ id }) => id === studentId)?.name ?? "Unknown"
       );
 
       return {
-        classRoom: c.name,
-        names: names.join(", "),
+        classRoom: c.classRoom,
+        studentNames: names.join(", "),
       };
     });
 

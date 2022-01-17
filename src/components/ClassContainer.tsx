@@ -1,11 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ClassContent } from '@/components'
-
-type ClassInfo = {
-  classRoom: string
-  names: string
-}
+import { ClassInfo } from "@/repositories"
 
 type ContainerProps = {
   classInfo: Array<ClassInfo>
@@ -21,10 +17,10 @@ const Component = ({
 }: Props): JSX.Element => {
   return (
     <div className={className}>
-      {classInfo.map(({ classRoom, names }, index) => (
+      {classInfo.map(({ classRoom, studentNames }, index) => (
         <div key={`classRoom-${index}`} className='container'>
           <ClassContent className='content' title='Name' detail={classRoom} />
-          <ClassContent className='content' title='Students' detail={names} />
+          <ClassContent className='content' title='Students' detail={studentNames} />
         </div>
       ))}
     </div>
