@@ -1,13 +1,12 @@
-import React from 'react'
-import '@/styles/globals.css'
-// import '@/styles/destyle.css'
+import React from 'react';
+import '@/styles/globals.css';
 import {
   BrowserRouter,
   Routes,
   Route
-} from 'react-router-dom'
-import TopContainer from '@/containers/TopContainer'
-import ErrorContainer from '@/containers/ErrorContainer'
+} from 'react-router-dom';
+import TopContainer from '@/containers/TopContainer';
+import ErrorContainer from '@/containers/ErrorContainer';
 
 function App() {
   return (
@@ -19,6 +18,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   )
-}
+};
 
-export default App
+export default App;

@@ -18,7 +18,9 @@ export class ClassRepository {
    * @returns All Classes Data
    */
   static fetchAllClasses = async (): Promise<ClassesInfo> => {
-    return await classesTable.select()
+    return await classesTable.select({
+      sort: [{ field: 'Name', direction: 'asc' }]
+    })
       .firstPage()
       .then((classes) => {
         const modClasses = classes.map((c) => {
@@ -34,7 +36,7 @@ export class ClassRepository {
       })
       .catch((err) => {
         const statusCode = (Number(err.statusCode) || 404) as ErrorStatusType
-        console.error(`${statusCode} ERROR:  ${ERROR_STATUS[statusCode]}`);
+        console.error(`${statusCode} ERROR:  ${ERROR_STATUS[statusCode]}`)
         return {
           classes: [],
           error: {
@@ -42,6 +44,6 @@ export class ClassRepository {
             message: ERROR_STATUS[statusCode]
           }
         }
-      });
+      })
   }
 }

@@ -6,7 +6,8 @@
     "dev": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "lint": "eslint --fix '**/*.{ts,tsx}'"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
