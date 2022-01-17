@@ -1,12 +1,12 @@
 # About
-This is a app I challenged with Airtable.
+This is a demo app I challenged with Airtable.
 
 # How to use
 ```sh
 $ yarn dev
 ```
 
-Access to localhost:3000
+Access to [localhost:3000](http://localhost:3000)
 
 # Language, Libraries and Tools
 - React.js
