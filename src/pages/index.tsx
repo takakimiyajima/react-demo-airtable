@@ -1,96 +1,106 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
-import { Class, Student } from '@/repositories'
-import { TopHandler } from '@/containers/TopContainer'
-import { ClassContainer } from '@/components/ClassContainer'
-import { TextInput } from '@/components/TextInput'
-import { SubmitButton } from '@/components/SubmitButton'
-
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Class, Student } from "@/repositories";
+import { TopHandler } from "@/containers/TopContainer";
+import { ClassContainer } from "@/components/ClassContainer";
+import { TextInput } from "@/components/TextInput";
+import { SubmitButton } from "@/components/SubmitButton";
 
 type ClassInfo = {
-  classRoom: string
-  names: string
-}
+  classRoom: string;
+  names: string;
+};
 
 type ContainerProps = {
-  classes: Array<Class>
-  studentID: string
-  students: Array<Student>
-}
+  classes: Array<Class>;
+  studentID: string;
+  students: Array<Student>;
+  isFetching: boolean;
+};
 
 type Props = {
-  className?: string
-} & ContainerProps & TopHandler
+  className?: string;
+} & ContainerProps &
+  TopHandler;
 
 const Component = ({
   className,
   classes,
   studentID,
   students,
+  onIsFetching,
   onGetAllClasses,
   onGetStudent,
   onGetAllStudents,
-  onClearAll
+  onClearAll,
+  isFetching,
 }: Props): JSX.Element => {
-  const [name, setName] = useState('')
-  const [isLogin, setIsLogin] = useState(false)
-  const [classInfo, setClassInfo] = useState<Array<ClassInfo>>([])
+  const [name, setName] = useState("");
+  const [classInfo, setClassInfo] = useState<Array<ClassInfo>>([]);
 
-  const login = async () => {
-    setIsLogin(true)
-    await onGetAllClasses()
-    await onGetStudent(name)
-    await onGetAllStudents()
-  }
+  const login = () => {
+    onIsFetching();
+    onGetStudent(name);
+    onGetAllStudents();
+    onGetAllClasses();
+  };
 
   const logout = () => {
-    onClearAll()
-    setIsLogin(false)
-    setName('')
-  }
+    onClearAll();
+    setName("");
+  };
 
   useEffect(() => {
-    const filteredClass = classes.filter(({ students }) => students.includes(studentID))
+    const filteredClass = classes.filter(({ students }) =>
+      students.includes(studentID)
+    );
     const classAndStudent: Array<ClassInfo> = filteredClass.flatMap((c) => {
-      const names = c.students.map((studentId) => students.find(({ id }) => id === studentId)?.name ?? 'Unknown')
+      const names = c.students.map(
+        (studentId) =>
+          students.find(({ id }) => id === studentId)?.name ?? "Unknown"
+      );
 
       return {
         classRoom: c.name,
-        names: names.join(', ')
-      }
-    })
+        names: names.join(", "),
+      };
+    });
 
-    setClassInfo(classAndStudent)
-  }, [studentID, classes, students])
+    setClassInfo(classAndStudent);
+  }, [studentID, classes, students]);
 
   return (
     <div className={className}>
-      {isLogin && classInfo.length ? (
+      {classInfo.length ? (
         <>
-          <div className='logout-button'>
-            <SubmitButton title='Logout' onClick={logout} />
+          <div className="logout-button">
+            <SubmitButton title="Logout" onClick={logout} />
           </div>
-          <div className='class-container'>
+          <div className="class-container">
             <ClassContainer classInfo={classInfo} />
           </div>
         </>
-      ) : isLogin && !classInfo.length ? (
-        <div className='login'>Loading....</div>
       ) : (
-        <div className='login'>
-          <TextInput
-            title="Student Name: "
-            inputValue={name}
-            onChangeValue={setName}
-          />
-          <div className='login-button'>
-            <SubmitButton title='Login' onClick={login} />
-          </div>
+        <div className="login">
+          {isFetching ? (
+            <p>Loading.....</p>
+          ) : (
+            <>
+              <TextInput
+                title="Student Name: "
+                inputValue={name}
+                onChangeValue={setName}
+              />
+              <div className="login-button">
+                <SubmitButton title="Login" onClick={login} />
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 const StyledComponent = styled(Component)`
   > .logout-button {
@@ -117,8 +127,8 @@ const StyledComponent = styled(Component)`
       margin-top: 10px;
     }
   }
-`
+`;
 
 export const Top = (props: Props): JSX.Element => {
-  return <StyledComponent {...props} />
-}
+  return <StyledComponent {...props} />;
+};

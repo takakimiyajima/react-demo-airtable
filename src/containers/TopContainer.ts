@@ -1,45 +1,51 @@
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
-import { Top } from "@/pages"
-import { AppState } from "@/store"
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { Top } from "@/pages";
+import { AppState } from "@/store";
 import {
+  isFetching,
   getAllClasses,
   getStudent,
   getAllStudents,
-  clearAll
-} from "@/action"
+  clearAll,
+} from "@/action";
 
 export type TopHandler = {
-  onGetAllClasses: () => Promise<void>
-  onGetStudent: (studentID: string) => Promise<void>
-  onGetAllStudents: () => Promise<void>
-  onClearAll: () => void
-}
+  onIsFetching: () => void;
+  onGetAllClasses: () => void;
+  onGetStudent: (studentID: string) => void;
+  onGetAllStudents: () => void;
+  onClearAll: () => void;
+};
 
 const mapStateToProps = (appState: AppState) => {
   return {
     classes: appState.state.classes,
     studentID: appState.state.studentID,
     students: appState.state.students,
-  }
-}
+    isFetching: appState.state.isFetching,
+  };
+};
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const mapDispatchToProps = (dispatch: Dispatch): TopHandler => {
   return {
-    onGetAllClasses: async () => {
-      dispatch<any>(await getAllClasses())
+    onIsFetching: () => {
+      dispatch<any>(isFetching());
     },
-    onGetStudent: async (studentID: string) => {
-      dispatch<any>(await getStudent(studentID))
+    onGetAllClasses: () => {
+      dispatch<any>(getAllClasses());
     },
-    onGetAllStudents: async () => {
-      dispatch<any>(await getAllStudents())
+    onGetStudent: (studentID: string) => {
+      dispatch<any>(getStudent(studentID));
+    },
+    onGetAllStudents: () => {
+      dispatch<any>(getAllStudents());
     },
     onClearAll: () => {
-      dispatch<any>(clearAll())
+      dispatch<any>(clearAll());
     },
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Top)
+export default connect(mapStateToProps, mapDispatchToProps)(Top);
