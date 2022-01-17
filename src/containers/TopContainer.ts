@@ -11,7 +11,7 @@ import {
 } from "@/action";
 
 export type TopHandler = {
-  onIsFetching: () => void;
+  onIsFetching: (is: boolean) => void;
   onGetAllClasses: () => void;
   onGetStudent: (studentID: string) => void;
   onGetAllStudents: () => void;
@@ -24,14 +24,15 @@ const mapStateToProps = (appState: AppState) => {
     studentID: appState.state.studentID,
     students: appState.state.students,
     isFetching: appState.state.isFetching,
+    error: appState.state.error,
   };
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const mapDispatchToProps = (dispatch: Dispatch): TopHandler => {
   return {
-    onIsFetching: () => {
-      dispatch<any>(isFetching());
+    onIsFetching: (is: boolean) => {
+      dispatch<any>(isFetching(is));
     },
     onGetAllClasses: () => {
       dispatch<any>(getAllClasses());

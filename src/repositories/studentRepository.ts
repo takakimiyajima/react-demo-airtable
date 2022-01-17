@@ -1,8 +1,21 @@
 import { studentsTable } from "@/services/airtable"
+import { Error } from '@/reducer'
+import { ERROR_STATUS, ErrorStatusType } from '@/constants/error'
 
-export type Student = {
+
+export type StudentID = {
+  studentID: string
+  error?: Error
+}
+
+export type StudentInfo = {
   id: string
   name: string
+}
+
+export type StudentsInfo = {
+  students: Array<StudentInfo>
+  error?: Error
 }
 
 export class StudentRepository {
@@ -13,37 +26,62 @@ export class StudentRepository {
    */
   static fetchStudent = async (
     name: string
-  ): Promise<string | null | undefined> => {
-    try {
-      const student = await studentsTable
-        .select({
-          filterByFormula: `{Name} = "${name}"`,
-          maxRecords: 1,
-        })
-        .firstPage()
-
-      return student[0] ? student[0].id : null
-    } catch (error) {
-      console.error(error)
-    }
+  ): Promise<StudentID> => {
+    return await studentsTable
+      .select({
+        filterByFormula: `{Name} = "${name}"`,
+        maxRecords: 1,
+      })
+      .firstPage()
+      .then((student) => {
+        return {
+          studentID: student[0].id,
+          error: undefined
+        }
+      })
+      .catch((err) => {
+        const statusCode = (Number(err.statusCode) || 404) as ErrorStatusType
+        console.error(`${statusCode} ERROR:  ${ERROR_STATUS[statusCode]}`);
+        return {
+          studentID: '',
+          isFetching: false,
+          error: {
+            statusCode,
+            message: ERROR_STATUS[statusCode]
+          }
+        }
+      });
   }
 
   /**
    * Fetch all students
    * @returns all students data
    */
-  static fetchAllStudents = async (): Promise<Array<Student> | undefined> => {
-    try {
-      const students = await studentsTable.select().firstPage()
-
-      return students.map((student) => {
+  static fetchAllStudents = async (): Promise<StudentsInfo> => {
+    return await studentsTable.select()
+      .firstPage()
+      .then((students) => {
+        const modStudents = students.map((student) => {
+          return {
+            id: student.id as string,
+            name: student.fields.Name as string,
+          }
+        })
         return {
-          id: student.id as string,
-          name: student.fields.Name as string,
+          students: modStudents,
+          error: undefined
         }
       })
-    } catch (error) {
-      console.error(error)
-    }
+      .catch((err) => {
+        const statusCode = (Number(err.statusCode) || 404) as ErrorStatusType
+        console.error(`${statusCode} ERROR:  ${ERROR_STATUS[statusCode]}`);
+        return {
+          students: [],
+          error: {
+            statusCode,
+            message: ERROR_STATUS[statusCode]
+          }
+        }
+      })
   }
 }

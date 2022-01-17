@@ -7,12 +7,14 @@ import {
   Route
 } from 'react-router-dom'
 import TopContainer from '@/containers/TopContainer'
+import ErrorContainer from '@/containers/ErrorContainer'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<TopContainer />} />
+        <Route path='/error' element={<ErrorContainer />} />
       </Routes>
     </BrowserRouter>
   )

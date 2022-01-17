@@ -1,12 +1,18 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import { Actions } from "@/action";
-import { Class, Student } from "@/repositories";
+import { Class, StudentInfo } from "@/repositories";
 
-export interface State {
+export type Error = {
+  statusCode: number;
+  message: string;
+}
+
+export type State = {
   classes: Array<Class>;
   studentID: string;
-  students: Array<Student>;
+  students: Array<StudentInfo>;
   isFetching: boolean;
+  error: Error | null;
 }
 
 export const initialState: State = {
@@ -14,6 +20,7 @@ export const initialState: State = {
   studentID: "",
   students: [],
   isFetching: false,
+  error: null
 };
 
 /** Return new state */
@@ -27,20 +34,20 @@ export const Reducer = reducerWithInitialState(initialState)
   .case(Actions.fetchAllClasses, (state, classes) => {
     return {
       ...state,
-      classes,
+      ...classes,
       isFetching: false,
     };
   })
   .case(Actions.fetchStudent, (state, studentID) => {
     return {
       ...state,
-      studentID,
+      ...studentID,
     };
   })
   .case(Actions.fetchAllStudents, (state, students) => {
     return {
       ...state,
-      students,
+      ...students,
     };
   })
   .case(Actions.clearAll, (state) => {

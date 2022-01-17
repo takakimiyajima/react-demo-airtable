@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Class, Student } from "@/repositories";
+import { useNavigate } from "react-router-dom";
+import { Error } from '@/reducer'
+import { Class, StudentInfo } from "@/repositories";
 import { TopHandler } from "@/containers/TopContainer";
 import { ClassContainer } from "@/components/ClassContainer";
 import { TextInput } from "@/components/TextInput";
@@ -14,8 +16,9 @@ type ClassInfo = {
 type ContainerProps = {
   classes: Array<Class>;
   studentID: string;
-  students: Array<Student>;
+  students: Array<StudentInfo>;
   isFetching: boolean;
+  error: Error | null
 };
 
 type Props = {
@@ -34,21 +37,30 @@ const Component = ({
   onGetAllStudents,
   onClearAll,
   isFetching,
+  error,
 }: Props): JSX.Element => {
   const [name, setName] = useState("");
   const [classInfo, setClassInfo] = useState<Array<ClassInfo>>([]);
+  // const [err, setErr] = useState<Error | null>(error);
 
+  const navigate = useNavigate()
+  
   const login = () => {
-    onIsFetching();
+    onIsFetching(true);
     onGetStudent(name);
-    onGetAllStudents();
-    onGetAllClasses();
   };
 
   const logout = () => {
     onClearAll();
     setName("");
   };
+
+  useEffect(() => {
+    if (studentID) {
+      onGetAllStudents();
+      onGetAllClasses();
+    }
+  }, [studentID]);
 
   useEffect(() => {
     const filteredClass = classes.filter(({ students }) =>
@@ -67,7 +79,13 @@ const Component = ({
     });
 
     setClassInfo(classAndStudent);
-  }, [studentID, classes, students]);
+  }, [classes, students]);
+
+  useEffect(() => {
+    if (error) {
+      navigate('/error')
+    }
+  }, [error]);
 
   return (
     <div className={className}>
