@@ -1,6 +1,6 @@
 import { studentsTable } from "@/services/airtable"
-import { Error } from '@/reducer'
-import { ERROR_STATUS, ErrorStatusType } from '@/constants/error'
+import { Error } from "@/reducer"
+import { ERROR_STATUS, ErrorStatusType } from "@/constants/error"
 
 
 export type StudentID = {
@@ -50,7 +50,7 @@ export class StudentRepository {
             message: ERROR_STATUS[statusCode]
           }
         }
-      });
+      })
   }
 
   /**
