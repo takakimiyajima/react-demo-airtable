@@ -31,8 +31,6 @@ export const getAllClasses = () => {
 }
 
 export const getStudent = (studentName: string) => {
-  console.log('studentName-----------')
-  console.log(studentName)
   return async (dispatch: Dispatch) => {
     console.log('dispatch')
     const studentID = await StudentRepository.fetchStudent(studentName)

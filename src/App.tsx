@@ -6,7 +6,6 @@ import {
   Routes,
   Route
 } from 'react-router-dom'
-
 import TopContainer from '@/containers/TopContainer'
 
 function App() {

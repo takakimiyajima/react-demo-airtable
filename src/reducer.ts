@@ -1,36 +1,36 @@
-import { reducerWithInitialState } from 'typescript-fsa-reducers'
-import { Actions } from '@/action'
-import { Class, Student } from '@/repositories'
+import { reducerWithInitialState } from "typescript-fsa-reducers";
+import { Actions } from "@/action";
+import { Class, Student } from "@/repositories";
 
 export interface State {
-  classes: Array<Class>
-  studentId: string
-  students: Array<Student>
+  classes: Array<Class>;
+  studentID: string;
+  students: Array<Student>;
 }
 
 export const initialState: State = {
   classes: [],
-  studentId: '',
+  studentID: "",
   students: [],
-}
+};
 
 /** Return new state */
 export const Reducer = reducerWithInitialState(initialState)
   .case(Actions.fetchAllClasses, (state, classes) => {
     return {
       ...state,
-      classes
-    }
+      classes,
+    };
   })
-  .case(Actions.fetchStudent, (state, studentId) => {
+  .case(Actions.fetchStudent, (state, studentID) => {
     return {
       ...state,
-      studentId
-    }
+      studentID,
+    };
   })
   .case(Actions.fetchAllStudents, (state, students) => {
     return {
       ...state,
-      students
-    }
-  })
+      students,
+    };
+  });

@@ -1,11 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { TextInput } from '@/components/TextInput'
-import { Class } from '@/repositories'
+import { Class, Student } from '@/repositories'
 import { TopHandler } from '@/containers/TopContainer'
+import { ClassContainer } from '@/components/ClassContainer'
+
+type ClassInfo = {
+  classRoom: string
+  names: string
+}
 
 type ContainerProps = {
   classes: Array<Class>
+  studentID: string
+  students: Array<Student>
 }
 
 type Props = {
@@ -15,11 +23,14 @@ type Props = {
 const Component = ({
   className,
   classes,
+  studentID,
+  students,
   onGetAllClasses,
   onGetStudent,
   onGetAllStudents
 }: Props): JSX.Element => {
   const [name, setName] = useState('')
+  const [classInfo, setClassInfo] = useState<Array<ClassInfo>>([])
 
   const login = () => {
     onGetAllClasses()
@@ -27,20 +38,33 @@ const Component = ({
     onGetAllStudents()
   }
 
+  useEffect(() => {
+    const filteredClass = classes.filter(({ students }) => students.includes(studentID))
+    const classAndStudent: Array<ClassInfo> = filteredClass.flatMap((c) => {
+      const names = c.students.map((studentId) => students.find(({ id }) => id === studentId)?.name ?? 'Unknown')
+
+      return {
+        classRoom: c.name,
+        names: names.join(', ')
+      }
+    })
+
+    setClassInfo(classAndStudent)
+  }, [studentID, classes, students])
+
   return (
     <div className={className}>
-      <TextInput
-        title="Student Name: "
-        inputValue={name}
-        onChangeValue={setName}
-      />
-      <button className='login' onClick={login}>Login</button>
-      {classes.length > 0 ? (
-        classes.map(({ name }, index) => (
-          <p key={`classes-${index}`}>{name}</p>
-        ))
+      {classInfo.length > 0 ? (
+        <ClassContainer classInfo={classInfo} />
       ) : (
-        <p>Nothing</p>
+        <>
+          <TextInput
+            title="Student Name: "
+            inputValue={name}
+            onChangeValue={setName}
+          />
+          <button className='login' onClick={login}>Login</button>
+        </>
       )}
     </div>
   )
