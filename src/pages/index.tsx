@@ -41,9 +41,7 @@ const Component = ({
 }: Props): JSX.Element => {
   const [name, setName] = useState("");
   const [classInfo, setClassInfo] = useState<Array<ClassInfo>>([]);
-  // const [err, setErr] = useState<Error | null>(error);
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   
   const login = () => {
     onIsFetching(true);

@@ -11,16 +11,7 @@ const TABLES = {
 const classesTable = base(TABLES.CLASSES)
 const studentsTable = base(TABLES.STUDENTS)
 
-type Record = {
-  id: string
-}
-
-const getMinifiedRecords = (records: Array<Record>) => {
-  return records.map(({ id }) => id)
-}
-
 export {
   classesTable,
-  studentsTable,
-  getMinifiedRecords
+  studentsTable
 }

@@ -3,8 +3,8 @@
  */
 
 export const ERROR_STATUS = {
-  [404]: 'Cannot read properties of undefined',
-  [422]: 'Unprocessable entity',
-  [500]: 'Internal server error'
+  [404]: 'Cannot find the user you chose.',
+  [422]: 'Unprocessable entity.',
+  [500]: 'We are Sorry Internal System Error: Please try again if you encounter an error.'
 }
 export type ErrorStatusType = keyof typeof ERROR_STATUS;

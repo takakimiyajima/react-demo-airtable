@@ -19,36 +19,29 @@ const Component = ({ className, error, onClearAll }: Props) => {
 
   return (
     <div className={className}>
-      {error && <p>{error.message}</p>}
-      <Link to='/' onClick={() => onClickToLogin()}>To login</Link>
+      <p className='message'>Sorry! {error?.message ?? 'Unexpected error has occurred.'}</p>
+      <div className='link'>
+        <Link to='/' onClick={() => onClickToLogin()}>To login</Link>
+      </div>
     </div>
   )
 }
 
 const StyledComponent = styled(Component)`
-  > .logout-button {
-    display: flex;
-    justify-content: right;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 20px;
+
+  > .message {
+    font-weight: bold;
+    font-size: 30px;
   }
 
-  > .class-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-  > .login {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-
-    > .login-button {
-      margin-top: 10px;
-    }
+  > .link {
+    text-decoration: underline;
   }
 `;
 
