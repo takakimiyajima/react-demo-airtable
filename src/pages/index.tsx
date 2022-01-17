@@ -29,7 +29,8 @@ const Component = ({
   students,
   onGetAllClasses,
   onGetStudent,
-  onGetAllStudents
+  onGetAllStudents,
+  onClearAll
 }: Props): JSX.Element => {
   const [name, setName] = useState('')
   const [classInfo, setClassInfo] = useState<Array<ClassInfo>>([])
@@ -41,7 +42,7 @@ const Component = ({
   }
 
   const logout = () => {
-    console.log('logout')
+    onClearAll()
   }
 
   useEffect(() => {
