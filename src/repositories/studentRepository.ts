@@ -8,18 +8,33 @@ export class StudentRepository {
    */
   static fetchStudent = async(name: string) => {
     try {
-      const records = await studentsTable.select({
+      const student = await studentsTable.select({
         filterByFormula: `{Name} = "${name}"`,
+        maxRecords: 1
       }).firstPage()
 
-      const modRecords = records.map((record) => {
+      const studentId = student[0] ? student[0].id : null
+
+      return studentId
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  /**
+   * Fetch all students
+   * @returns all students data
+   */
+  static fetchAllStudents = async() => {
+    try {
+      const students = await studentsTable.select().firstPage()
+
+      return students.map((student) => {
         return {
-          name: record.fields.Name,
-          classes: record.fields.Classes
+          id: student.id,
+          name: student.fields.Name,
         }
       })
-
-      return modRecords
     } catch (error) {
       console.error(error)
     }
