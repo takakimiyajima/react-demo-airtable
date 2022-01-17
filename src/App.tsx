@@ -15,6 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<TopContainer />} />
         <Route path='/error' element={<ErrorContainer />} />
+        <Route path='*' element={<ErrorContainer />} />
       </Routes>
     </BrowserRouter>
   )
