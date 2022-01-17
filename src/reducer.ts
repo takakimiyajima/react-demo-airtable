@@ -34,7 +34,7 @@ export const Reducer = reducerWithInitialState(initialState)
       students,
     }
   })
-  .case(Actions.clear, (state) => {
+  .case(Actions.clearAll, (state) => {
     state = initialState
     return {
       ...state,
