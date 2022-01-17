@@ -1,19 +1,36 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers'
-import { TextInputActions } from './action'
+import { Actions } from '@/action'
+import { Class, Student } from '@/repositories'
 
 export interface State {
-  inputValue: string
+  classes: Array<Class>
+  studentId: string
+  students: Array<Student>
 }
 
 export const initialState: State = {
-  inputValue: '',
+  classes: [],
+  studentId: '',
+  students: [],
 }
 
 /** Return new state */
 export const Reducer = reducerWithInitialState(initialState)
-  .case(TextInputActions.updateTextInputValue, (state, inputValue) => {
+  .case(Actions.fetchAllClasses, (state, classes) => {
     return {
       ...state,
-      inputValue
+      classes
+    }
+  })
+  .case(Actions.fetchStudent, (state, studentId) => {
+    return {
+      ...state,
+      studentId
+    }
+  })
+  .case(Actions.fetchAllStudents, (state, students) => {
+    return {
+      ...state,
+      students
     }
   })

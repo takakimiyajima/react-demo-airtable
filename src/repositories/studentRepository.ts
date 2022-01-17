@@ -1,12 +1,20 @@
 import { studentsTable } from '@/services/airtable'
 
+export type Student = {
+  id: string
+  name: string
+}
+
 export class StudentRepository {
   /**
-   * Fetch one student
+   * Fetch a student
    * @param name Student's name
-   * @returns all students data
+   * @returns a student record ID filtered name
    */
-  static fetchStudent = async(name: string) => {
+  static fetchStudent = async(
+    name: string
+  ): Promise<string | null | undefined> => {
+    console.log('fetchStudent')
     try {
       const student = await studentsTable.select({
         filterByFormula: `{Name} = "${name}"`,
@@ -25,14 +33,14 @@ export class StudentRepository {
    * Fetch all students
    * @returns all students data
    */
-  static fetchAllStudents = async() => {
+  static fetchAllStudents = async(): Promise<Array<Student> | undefined> => {
     try {
       const students = await studentsTable.select().firstPage()
 
       return students.map((student) => {
         return {
-          id: student.id,
-          name: student.fields.Name,
+          id: student.id as string,
+          name: student.fields.Name as string,
         }
       })
     } catch (error) {
