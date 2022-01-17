@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ClassContent } from '@/components/ClassContent'
+import { ClassContent } from '@/components'
 
 type ClassInfo = {
   classRoom: string

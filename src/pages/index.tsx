@@ -3,11 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { AppState } from "@/store";
-import { Error } from '@/reducer'
-import { Class, StudentInfo } from "@/repositories";
-import { ClassContainer } from "@/components/ClassContainer";
-import { TextInput } from "@/components/TextInput";
-import { SubmitButton } from "@/components/SubmitButton";
 import {
   isFetching,
   getAllClasses,
@@ -15,6 +10,13 @@ import {
   getAllStudents,
   clearAll,
 } from "@/action";
+import { Error } from '@/reducer'
+import { Class, StudentInfo } from "@/repositories";
+import {
+  ClassContainer,
+  TextInput,
+  SubmitButton
+} from "@/components";
 
 type ClassInfo = {
   classRoom: string;
