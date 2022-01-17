@@ -23,7 +23,7 @@ export const Actions = {
   clearAll: actionCreator(DISPATCH_STRING.CLEAR_STATE),
 }
 
-export const getAllClasses = () => {
+export const getAllClasses = async () => {
   return async (dispatch: Dispatch) => {
     const allClasses = await ClassRepository.fetchAllClasses()
     if (allClasses) {
@@ -32,7 +32,7 @@ export const getAllClasses = () => {
   }
 }
 
-export const getStudent = (studentName: string) => {
+export const getStudent = async (studentName: string) => {
   return async (dispatch: Dispatch) => {
     const studentID = await StudentRepository.fetchStudent(studentName)
     if (studentID) {
@@ -41,7 +41,7 @@ export const getStudent = (studentName: string) => {
   }
 }
 
-export const getAllStudents = () => {
+export const getAllStudents = async () => {
   return async (dispatch: Dispatch) => {
     const allStudents = await StudentRepository.fetchAllStudents()
     if (allStudents) {
@@ -51,7 +51,7 @@ export const getAllStudents = () => {
 }
 
 export const clearAll = () => {
-  return async (dispatch: Dispatch) => {
+  return (dispatch: Dispatch) => {
     dispatch(Actions.clearAll())
   }
 }

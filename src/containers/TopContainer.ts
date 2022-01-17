@@ -10,10 +10,10 @@ import {
 } from "@/action"
 
 export type TopHandler = {
-  onGetAllClasses: () => void;
-  onGetStudent: (studentID: string) => void;
-  onGetAllStudents: () => void;
-  onClearAll: () => void;
+  onGetAllClasses: () => Promise<void>
+  onGetStudent: (studentID: string) => Promise<void>
+  onGetAllStudents: () => Promise<void>
+  onClearAll: () => void
 }
 
 const mapStateToProps = (appState: AppState) => {
@@ -24,16 +24,17 @@ const mapStateToProps = (appState: AppState) => {
   }
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const mapDispatchToProps = (dispatch: Dispatch): TopHandler => {
   return {
-    onGetAllClasses: () => {
-      dispatch<any>(getAllClasses())
+    onGetAllClasses: async () => {
+      dispatch<any>(await getAllClasses())
     },
-    onGetStudent: (studentID: string) => {
-      dispatch<any>(getStudent(studentID))
+    onGetStudent: async (studentID: string) => {
+      dispatch<any>(await getStudent(studentID))
     },
-    onGetAllStudents: () => {
-      dispatch<any>(getAllStudents())
+    onGetAllStudents: async () => {
+      dispatch<any>(await getAllStudents())
     },
     onClearAll: () => {
       dispatch<any>(clearAll())

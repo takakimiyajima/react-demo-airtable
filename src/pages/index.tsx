@@ -33,16 +33,19 @@ const Component = ({
   onClearAll
 }: Props): JSX.Element => {
   const [name, setName] = useState('')
+  const [isLogin, setIsLogin] = useState(false)
   const [classInfo, setClassInfo] = useState<Array<ClassInfo>>([])
 
-  const login = () => {
-    onGetAllClasses()
-    onGetStudent(name)
-    onGetAllStudents()
+  const login = async () => {
+    setIsLogin(true)
+    await onGetAllClasses()
+    await onGetStudent(name)
+    await onGetAllStudents()
   }
 
   const logout = () => {
     onClearAll()
+    setIsLogin(false)
     setName('')
   }
 
@@ -62,7 +65,7 @@ const Component = ({
 
   return (
     <div className={className}>
-      {classInfo.length > 0 ? (
+      {isLogin && classInfo.length ? (
         <>
           <div className='logout-button'>
             <SubmitButton title='Logout' onClick={logout} />
@@ -71,6 +74,8 @@ const Component = ({
             <ClassContainer classInfo={classInfo} />
           </div>
         </>
+      ) : isLogin && !classInfo.length ? (
+        <div className='login'>Loading....</div>
       ) : (
         <div className='login'>
           <TextInput
