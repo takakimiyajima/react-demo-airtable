@@ -43,6 +43,7 @@ const Component = ({
 
   const logout = () => {
     onClearAll()
+    setName('')
   }
 
   useEffect(() => {

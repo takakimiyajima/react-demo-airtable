@@ -20,7 +20,7 @@ export const Actions = {
   fetchAllClasses: actionCreator<Array<Class>>(DISPATCH_STRING.FETCH_ALL_CLASSES),
   fetchStudent: actionCreator<string>(DISPATCH_STRING.FETCH_STUDENT),
   fetchAllStudents: actionCreator<Array<Student>>(DISPATCH_STRING.FETCH_ALL_STUDENTS),
-  clear: actionCreator<undefined>(DISPATCH_STRING.CLEAR_STATE),
+  clearAll: actionCreator(DISPATCH_STRING.CLEAR_STATE),
 }
 
 export const getAllClasses = () => {
@@ -52,7 +52,7 @@ export const getAllStudents = () => {
 
 export const clearAll = () => {
   return async (dispatch: Dispatch) => {
-    dispatch(Actions.clear(undefined))
+    dispatch(Actions.clearAll())
   }
 }
 
